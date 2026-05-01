@@ -1,74 +1,165 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📚 技术文档知识库</title>
-  <style>
-    :root { --theme-color: #7CB342; --sidebar-width: 280px; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #c9d1d9; background: #0d1117; }
-    .loading-wrap { display: flex; justify-content: center; align-items: center; height: 60vh; flex-direction: column; }
-    .loading-spinner { width: 40px; height: 40px; border: 4px solid #3a3a3a; border-top-color: #7CB342; border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    /* Docsify fallback: 如果Docsify没加载，显示基本样式 */
-    .fallback-nav { max-width: 800px; margin: 40px auto; padding: 20px; }
-    .fallback-nav h1 { color: #7CB342; }
-    .fallback-nav a { color: #58a6ff; text-decoration: none; }
-    .fallback-nav a:hover { text-decoration: underline; }
-    .fallback-nav ul { line-height: 2; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技术文档知识库</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#0d1117;color:#c9d1d9;line-height:1.6}
+.header{background:linear-gradient(135deg,#1a237e 0%,#7CB342 100%);padding:40px 20px;text-align:center}
+.header h1{font-size:2em;color:#fff;margin-bottom:8px}
+.header p{color:rgba(255,255,255,0.8);font-size:1.1em}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.section{margin-bottom:40px}
+.section-title{font-size:1.4em;color:#7CB342;border-bottom:2px solid #7CB342;padding-bottom:8px;margin-bottom:16px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;transition:all 0.2s}
+.card:hover{border-color:#7CB342;transform:translateY(-2px);box-shadow:0 4px 12px rgba(124,179,66,0.15)}
+.card h3{color:#58a6ff;font-size:1em;margin-bottom:6px}
+.card h3 a{color:#58a6ff;text-decoration:none}
+.card h3 a:hover{color:#7CB342;text-decoration:underline}
+.card p{color:#8b949e;font-size:0.85em;margin:4px 0}
+.tag{display:inline-block;background:#1f2937;color:#7CB342;font-size:0.75em;padding:2px 8px;border-radius:10px;margin-top:6px}
+.sub-section{margin:12px 0 12px 20px;padding-left:12px;border-left:3px solid #30363d}
+.sub-section h4{color:#c9d1d9;font-size:1em;margin-bottom:8px}
+.link-list{list-style:none}
+.link-list li{padding:3px 0}
+.link-list a{color:#58a6ff;text-decoration:none;font-size:0.9em}
+.link-list a:hover{color:#7CB342;text-decoration:underline}
+.footer{text-align:center;padding:40px 20px;color:#484f58;font-size:0.85em;border-top:1px solid #21262d;margin-top:40px}
+.tab-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:0.9em}
+.tab-btn:hover,.tab-btn.active{background:#7CB342;color:#fff;border-color:#7CB342}
+.tab-content{display:none}
+.tab-content.active{display:block}
+</style>
 </head>
 <body>
-  <div id="app">
-    <div class="loading-wrap">
-      <div class="loading-spinner"></div>
-      <p style="color:#7CB342; margin-top:16px;">文档加载中...</p>
-      <p style="color:#666; margin-top:8px; font-size:12px;">如长时间未加载，请检查网络或尝试刷新</p>
-    </div>
-  </div>
-  <script>
-    window.$docsify = {
-      name: '📚 技术文档知识库',
-      nameLink: '#/',
-      loadSidebar: '_sidebar.md',
-      subMaxLevel: 3,
-      auto2top: true,
-      notFoundPage: true,
-      search: {
-        paths: 'auto',
-        placeholder: '搜索文档',
-        noData: '没有找到结果',
-        depth: 6
-      }
-    }
-  </script>
-  <!-- 多CDN回退：jsdelivr -> unpkg -> cdnjs -->
-  <script>
-    function loadScript(urls, callback) {
-      var i = 0;
-      function tryNext() {
-        if (i >= urls.length) { if (callback) callback(); return; }
-        var s = document.createElement('script');
-        s.src = urls[i];
-        s.onload = function() { if (callback) callback(); };
-        s.onerror = function() { i++; tryNext(); };
-        document.body.appendChild(s);
-      }
-      tryNext();
-    }
-    // 加载docsify核心
-    loadScript([
-      'https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js',
-      'https://unpkg.com/docsify@4/lib/docsify.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/docsify/4.13.1/docsify.min.js'
-    ], function() {
-      // docsify加载完后加载插件
-      loadScript(['https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js',
-        'https://unpkg.com/docsify@4/lib/plugins/search.min.js']);
-      loadScript(['https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/emoji.min.js',
-        'https://unpkg.com/docsify@4/lib/plugins/emoji.min.js']);
-    });
-  </script>
+<div class="header">
+<h1>📚 技术文档知识库</h1>
+<p>519张插画 · 76篇文档 · 63份源码解析 · 零基础小白也能看懂</p>
+</div>
+<div class="container">
+<div class="tab-bar">
+<button class="tab-btn active" onclick="showTab('tech')">🎓 技术教程</button>
+<button class="tab-btn" onclick="showTab('gallery')">🎨 蜡笔小新插画</button>
+<button class="tab-btn" onclick="showTab('picc')">🏥 PICC项目</button>
+<button class="tab-btn" onclick="showTab('kb')">🏢 企业知识库</button>
+</div>
+
+<div id="tab-tech" class="tab-content active">
+<h2 class="section-title">📖 8篇零基础教程</h2>
+<div class="card-grid">
+<div class="card"><h3><a href="技术知识库/教程文档/Java零基础小白教程.md">☕ Java零基础小白教程</a></h3><p>Java基础到进阶特性</p><span class="tag">7977行</span><span class="tag">119张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/K8s零基础小白教程.md">☸️ K8s零基础小白教程</a></h3><p>Kubernetes容器编排全流程</p><span class="tag">11363行</span><span class="tag">70张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/Transformer与机器学习小白教程.md">🧠 Transformer与机器学习</a></h3><p>Transformer原理与ML基础</p><span class="tag">26张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/大模型微调小白教程.md">🔧 大模型微调小白教程</a></h3><p>微调方法、数据准备、实战</p><span class="tag">4732行</span><span class="tag">18张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/AI工程化小白教程.md">⚙️ AI工程化小白教程</a></h3><p>AI项目工程化落地实践</p><span class="tag">28张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/AI应用开发小白教程.md">🚀 AI应用开发小白教程</a></h3><p>AI应用开发框架与实战</p><span class="tag">6304行</span><span class="tag">158张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/提示词工程小白教程.md">💬 提示词工程小白教程</a></h3><p>Prompt设计方法与技巧</p><span class="tag">4787行</span><span class="tag">40张插画</span></div>
+<div class="card"><h3><a href="技术知识库/教程文档/大模型面试通用宝典.md">📋 大模型面试通用宝典</a></h3><p>面试知识点全覆盖</p><span class="tag">6614行</span><span class="tag">60张插画</span></div>
+</div>
+<h2 class="section-title" style="margin-top:30px">🎭 蜡笔小新对话版</h2>
+<div class="card-grid">
+<div class="card"><h3><a href="技术知识库/教程文档/Java零基础小白教程-蜡笔小新对话版.md">☕ Java 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/K8s零基础小白教程-蜡笔小新对话版.md">☸️ K8s 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/Transformer与机器学习小白教程-蜡笔小新对话版.md">🧠 Transformer 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/大模型微调小白教程-蜡笔小新对话版.md">🔧 微调 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/AI工程化小白教程-蜡笔小新对话版.md">⚙️ AI工程化 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/AI应用开发小白教程-蜡笔小新对话版.md">🚀 AI应用 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/提示词工程小白教程-蜡笔小新对话版.md">💬 提示词 对话版</a></h3></div>
+<div class="card"><h3><a href="技术知识库/教程文档/大模型面试通用宝典-蜡笔小新对话版.md">📋 面试宝典 对话版</a></h3></div>
+</div>
+</div>
+
+<div id="tab-gallery" class="tab-content">
+<h2 class="section-title">🎨 蜡笔小新插画海报 · 共519张</h2>
+<div class="card-grid">
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/AI应用开发/README.md">🚀 AI应用开发</a></h3><p>158张 · API调用、Function Calling、RAG、Agent</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/Java/README.md">☕ Java</a></h3><p>119张 · 基础语法、面向对象、集合、多线程</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/K8s/README.md">☸️ K8s</a></h3><p>70张 · Pod、Service、Ingress、PV/PVC</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/面试宝典/README.md">📋 面试宝典</a></h3><p>60张 · Transformer、LoRA、RAG、面试技巧</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/提示词工程/README.md">💬 提示词工程</a></h3><p>40张 · CoT、Few-shot、System Prompt</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/AI工程化/README.md">⚙️ AI工程化</a></h3><p>28张 · LLM架构、RAG流水线、Agent安全</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/Transformer/README.md">🧠 Transformer</a></h3><p>26张 · 注意力机制、位置编码、FFN</p></div>
+<div class="card"><h3><a href="技术知识库/蜡笔小新插画海报版/微调/README.md">🔧 大模型微调</a></h3><p>18张 · LoRA、QLoRA、RLHF、SFT</p></div>
+</div>
+</div>
+
+<div id="tab-picc" class="tab-content">
+<h2 class="section-title">🏥 PICC项目文档</h2>
+<div class="card-grid" style="margin-bottom:20px">
+<div class="card"><h3><a href="PICC项目/PICC项目文档全景导航.md">🗺️ 文档全景导航</a></h3><p>所有文档入口索引</p></div>
+<div class="card"><h3><a href="PICC项目/PICC四服务全景架构.md">🏛️ 四服务全景架构</a></h3><p>Agent+Gateway+Server+User</p></div>
+<div class="card"><h3><a href="技术知识库/教程文档/PICC导入导出功能代码解析-小白版.md">📤 导入导出功能解析</a></h3><p>小白版代码解析</p></div>
+</div>
+<div class="sub-section">
+<h4>📂 picc-mzmtb-agent（前端 Vue2）</h4>
+<ul class="link-list">
+<li><a href="PICC项目/picc-mzmtb-agent/picc-mzmtb-agent-项目全貌与架构解析.md">项目全貌与架构解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-agent/picc-mzmtb-agent-路由与权限深度解析.md">路由与权限深度解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-agent/picc-mzmtb-agent-核心页面深度解析.md">核心页面深度解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-agent/picc-mzmtb-agent-Vuex状态管理深度解析.md">Vuex状态管理深度解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-agent/picc-mzmtb-agent-组件封装与复用指南.md">组件封装与复用指南</a></li>
+</ul>
+</div>
+<div class="sub-section">
+<h4>📂 picc-mzmtb-gateway（网关）</h4>
+<ul class="link-list">
+<li><a href="PICC项目/picc-mzmtb-gateway/picc-mzmtb-gateway-项目全貌与架构解析.md">项目全貌与架构解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-gateway/picc-mzmtb-gateway-API接口全景.md">API接口全景</a></li>
+<li><a href="PICC项目/picc-mzmtb-gateway/picc-mzmtb-gateway-核心Service方法级解析.md">核心Service方法级解析</a></li>
+</ul>
+</div>
+<div class="sub-section">
+<h4>📂 picc-mzmtb-server（核心业务）</h4>
+<ul class="link-list">
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-架构解析.md">架构解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-核心接口文档.md">核心接口文档</a></li>
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-申报流程解析.md">申报流程解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-文件处理与导出详解.md">文件处理与导出详解</a></li>
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-数据模型解析.md">数据模型解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-server/picc-mzmtb-server-定时任务详解.md">定时任务详解</a></li>
+</ul>
+</div>
+<div class="sub-section">
+<h4>📂 picc-mzmtb-user（用户权限）</h4>
+<ul class="link-list">
+<li><a href="PICC项目/picc-mzmtb-user/picc-mzmtb-user-架构设计文档.md">架构设计文档</a></li>
+<li><a href="PICC项目/picc-mzmtb-user/picc-mzmtb-user-深度解析.md">深度解析</a></li>
+<li><a href="PICC项目/picc-mzmtb-user/picc-mzmtb-user-方法级深度解析II.md">方法级深度解析II</a></li>
+</ul>
+</div>
+<h2 class="section-title" style="margin-top:30px">🔍 PICC源码逐文件解析 · 63份</h2>
+<div class="card-grid">
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-auth/">🔐 Auth认证服务</a></h3><p>89文件 → 登录、Token、验证码</p><span class="tag">5篇文档</span></div>
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-common/">📦 Common公共模块</a></h3><p>139文件 → 基类、Redis、工具</p><span class="tag">5篇文档</span></div>
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-user/">👤 User用户权限</a></h3><p>137文件 → RBAC、加密、分区权限</p><span class="tag">10篇文档</span></div>
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-server/">🖥️ Server核心业务</a></h3><p>2584文件 → 申报、导出、定时任务</p><span class="tag">15篇文档</span></div>
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-gateway/">🚪 Gateway网关</a></h3><p>809文件 → 路由、拦截、安全过滤</p><span class="tag">11篇文档</span></div>
+<div class="card"><h3><a href="技术知识库/PICC源码解析/picc-mzmtb-agent/">🎨 Agent前端</a></h3><p>1766文件 → Vue页面、路由、Vuex</p><span class="tag">22篇文档</span></div>
+</div>
+</div>
+
+<div id="tab-kb" class="tab-content">
+<h2 class="section-title">🏢 企业知识库平台 · 15篇</h2>
+<div class="card-grid">
+<div class="card"><h3><a href="企业知识库平台/01-调研报告.md">📋 调研报告</a></h3><p>RAGFlow vs RAGFlow-Plus对比</p></div>
+<div class="card"><h3><a href="企业知识库平台/02-系统设计方案.md">🏗️ 系统设计方案</a></h3><p>整体架构、技术选型</p></div>
+<div class="card"><h3><a href="企业知识库平台/03-RAGFlow项目学习.md">📚 RAGFlow项目学习</a></h3><p>架构、API、配置</p></div>
+<div class="card"><h3><a href="企业知识库平台/04-阿里云部署方案调研.md">☁️ 阿里云部署方案</a></h3><p>ECS/ACK/百炼对比</p></div>
+<div class="card"><h3><a href="企业知识库平台/06-权限体系与数据隔离设计.md">🔐 权限体系与数据隔离</a></h3><p>RBAC、租户隔离、行级权限</p></div>
+<div class="card"><h3><a href="企业知识库平台/07-RAGFlow源码深度解析.md">📖 RAGFlow源码深度解析</a></h3><p>最新版源码逐模块解析</p></div>
+<div class="card"><h3><a href="企业知识库平台/09-RAG增强策略与行级权限.md">🧠 RAG增强与行级权限</a></h3><p>检索增强、行级权限实现</p></div>
+<div class="card"><h3><a href="企业知识库平台/10-RAGFlow二次开发实战指南.md">🛠️ 二次开发实战指南</a></h3><p>定制化开发流程</p></div>
+</div>
+</div>
+
+</div>
+<div class="footer">🤖 Generated by AI Agent · Coze · 2026</div>
+<script>
+function showTab(n){document.querySelectorAll('.tab-content').forEach(function(e){e.classList.remove('active')});document.querySelectorAll('.tab-btn').forEach(function(e){e.classList.remove('active')});document.getElementById('tab-'+n).classList.add('active');event.target.classList.add('active')}
+</script>
 </body>
 </html>
