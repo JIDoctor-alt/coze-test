@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📚 技术文档知识库</title>
-  <!-- 主题CSS：先尝试jsdelivr，失败用unpkg -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"
-        onerror="this.href='https://unpkg.com/docsify-themeable@0/dist/css/theme-simple-dark.css'">
   <style>
-    :root {
-      --theme-color: #7CB342;
-      --sidebar-width: 280px;
-    }
-    .sidebar-nav > ul > li > p { font-weight: 700; font-size: 14px; }
-    /* 加载动画 */
+    :root { --theme-color: #7CB342; --sidebar-width: 280px; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #c9d1d9; background: #0d1117; }
     .loading-wrap { display: flex; justify-content: center; align-items: center; height: 60vh; flex-direction: column; }
     .loading-spinner { width: 40px; height: 40px; border: 4px solid #3a3a3a; border-top-color: #7CB342; border-radius: 50%; animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    /* Docsify fallback: 如果Docsify没加载，显示基本样式 */
+    .fallback-nav { max-width: 800px; margin: 40px auto; padding: 20px; }
+    .fallback-nav h1 { color: #7CB342; }
+    .fallback-nav a { color: #58a6ff; text-decoration: none; }
+    .fallback-nav a:hover { text-decoration: underline; }
+    .fallback-nav ul { line-height: 2; }
   </style>
 </head>
 <body>
@@ -24,6 +24,7 @@
     <div class="loading-wrap">
       <div class="loading-spinner"></div>
       <p style="color:#7CB342; margin-top:16px;">文档加载中...</p>
+      <p style="color:#666; margin-top:8px; font-size:12px;">如长时间未加载，请检查网络或尝试刷新</p>
     </div>
   </div>
   <script>
@@ -39,23 +40,35 @@
         placeholder: '搜索文档',
         noData: '没有找到结果',
         depth: 6
-      },
-      pagination: {
-        previousText: '上一章节',
-        nextText: '下一章节',
-        crossChapter: true,
-        crossChapterText: true,
       }
     }
   </script>
-  <!-- docsify核心：jsdelivr + unpkg双回退 -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"
-          onerror="var s=document.createElement('script');s.src='https://unpkg.com/docsify@4/lib/docsify.min.js';document.body.appendChild(s)"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"
-          onerror="var s=document.createElement('script');s.src='https://unpkg.com/docsify@4/lib/plugins/search.min.js';document.body.appendChild(s)"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/emoji.min.js"
-          onerror="var s=document.createElement('script');s.src='https://unpkg.com/docsify@4/lib/plugins/emoji.min.js';document.body.appendChild(s)"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"
-          onerror="var s=document.createElement('script');s.src='https://unpkg.com/docsify-pagination@2/dist/docsify-pagination.min.js';document.body.appendChild(s)"></script>
+  <!-- 多CDN回退：jsdelivr -> unpkg -> cdnjs -->
+  <script>
+    function loadScript(urls, callback) {
+      var i = 0;
+      function tryNext() {
+        if (i >= urls.length) { if (callback) callback(); return; }
+        var s = document.createElement('script');
+        s.src = urls[i];
+        s.onload = function() { if (callback) callback(); };
+        s.onerror = function() { i++; tryNext(); };
+        document.body.appendChild(s);
+      }
+      tryNext();
+    }
+    // 加载docsify核心
+    loadScript([
+      'https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js',
+      'https://unpkg.com/docsify@4/lib/docsify.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/docsify/4.13.1/docsify.min.js'
+    ], function() {
+      // docsify加载完后加载插件
+      loadScript(['https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js',
+        'https://unpkg.com/docsify@4/lib/plugins/search.min.js']);
+      loadScript(['https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/emoji.min.js',
+        'https://unpkg.com/docsify@4/lib/plugins/emoji.min.js']);
+    });
+  </script>
 </body>
 </html>
