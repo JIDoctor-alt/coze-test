@@ -1,0 +1,334 @@
+# openclaw-all-in-one.yaml
+# 使用方法：kubectl apply -f openclaw-all-in-one.yaml
+
+---
+# --- Namespace ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openclaw
+  labels:
+    app: openclaw
+
+---
+# --- ConfigMap ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openclaw-config
+  namespace: openclaw
+data:
+  openclaw.json: |
+    {
+      "gateway": {
+        "bind": "0.0.0.0:18789",
+        "auth": {
+          "token": "${OPENCLAW_AUTH_TOKEN}"
+        }
+      },
+      "models": {
+        "default": "vllm-local/Qwen3.5-35B",
+        "providers": {
+          "vllm-local": {
+            "baseUrl": "http://vllm-service.openclaw.svc.cluster.local:8000/v1",
+            "api": "openai-responses",
+            "models": [
+              "Qwen/Qwen3.5-35B-A3B-FP8"
+            ]
+          }
+        }
+      }
+    }
+
+---
+# --- Secret（部署前先替换 Token） ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openclaw-secrets
+  namespace: openclaw
+type: Opaque
+stringData:
+  gateway-token: "REPLACE_WITH_RANDOM_TOKEN"
+
+---
+# --- PVC: Gateway 数据 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-data
+  namespace: openclaw
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+# --- PVC: Gateway 工作空间 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-workspace
+  namespace: openclaw
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+# --- PVC: vLLM 模型缓存 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vllm-model-cache
+  namespace: openclaw
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 200Gi
+
+---
+# --- Deployment: OpenClaw Gateway ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openclaw-gateway
+  namespace: openclaw
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: openclaw
+      component: gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: openclaw
+        component: gateway
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+        - name: config-init
+          image: ghcr.io/openclaw/openclaw:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              cp /config-readonly/openclaw.json /home/node/.openclaw/openclaw.json
+              sed -i "s|\${OPENCLAW_AUTH_TOKEN}|${GATEWAY_TOKEN}|g" /home/node/.openclaw/openclaw.json
+          env:
+            - name: GATEWAY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: openclaw-secrets
+                  key: gateway-token
+          volumeMounts:
+            - name: config-readonly
+              mountPath: /config-readonly
+            - name: openclaw-data
+              mountPath: /home/node/.openclaw
+      containers:
+        - name: gateway
+          image: ghcr.io/openclaw/openclaw:latest
+          ports:
+            - containerPort: 18789
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 18789
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 18789
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 18789
+            periodSeconds: 5
+            failureThreshold: 12
+          volumeMounts:
+            - name: openclaw-data
+              mountPath: /home/node/.openclaw
+            - name: openclaw-workspace
+              mountPath: /home/node/workspace
+      volumes:
+        - name: config-readonly
+          configMap:
+            name: openclaw-config
+        - name: openclaw-data
+          persistentVolumeClaim:
+            claimName: openclaw-data
+        - name: openclaw-workspace
+          persistentVolumeClaim:
+            claimName: openclaw-workspace
+      terminationGracePeriodSeconds: 30
+
+---
+# --- Deployment: vLLM ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-inference
+  namespace: openclaw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openclaw
+      component: vllm
+  template:
+    metadata:
+      labels:
+        app: openclaw
+        component: vllm
+    spec:
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:latest
+          command: ["python3", "-m", "vllm.entrypoints.openai.api_server"]
+          args:
+            - "--model=Qwen/Qwen3.5-35B-A3B-FP8"
+            - "--host=0.0.0.0"
+            - "--port=8000"
+            - "--tensor-parallel-size=4"
+            - "--max-model-len=32768"
+            - "--gpu-memory-utilization=0.90"
+            - "--block-size=16"
+            - "--swap-space=8"
+            - "--dtype=auto"
+            - "--trust-remote-code"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: VLLM_WORKER_MULTIPROC_METHOD
+              value: "spawn"
+          resources:
+            requests:
+              cpu: "8"
+              memory: "64Gi"
+              nvidia.com/gpu: "4"
+            limits:
+              cpu: "16"
+              memory: "128Gi"
+              nvidia.com/gpu: "4"
+          volumeMounts:
+            - name: model-cache
+              mountPath: /root/.cache/huggingface
+            - name: shm
+              mountPath: /dev/shm
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 120
+            periodSeconds: 15
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: vllm-model-cache
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Gi
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      nodeSelector:
+        gpu-type: a100
+
+---
+# --- Service: OpenClaw Gateway ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclaw-gateway
+  namespace: openclaw
+spec:
+  type: ClusterIP
+  ports:
+    - port: 18789
+      targetPort: 18789
+  selector:
+    app: openclaw
+    component: gateway
+
+---
+# --- Service: vLLM ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-service
+  namespace: openclaw
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: openclaw
+    component: vllm
+
+---
+# --- Ingress ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openclaw-gateway
+  namespace: openclaw
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - openclaw.example.com
+      secretName: openclaw-tls
+  rules:
+    - host: openclaw.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: openclaw-gateway
+                port:
+                  number: 18789
