@@ -1,112 +1,284 @@
-# K8s零基础小白教程 - 蜡笔小新插画海报版
+# 蜡笔小新插画 - K8s
 
-> 🎨 通过生动有趣的蜡笔小新场景插画，轻松理解K8s核心概念
+<!-- 自动生成的插画列表 -->
 
----
+### 01_containers_0
 
-## 📚 插画列表
+![01_containers_0](01_containers_0.jpg)
 
-### 第一部分：容器基础
+### 01_containers_1
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 1 | 容器概念 | `01_containers_*.jpg` | 小新和爸爸玩集装箱玩具 |
-| 2 | 虚拟机vs容器 | `02_vm_vs_container_*.jpg` | 别墅（虚拟机）vs公寓（容器）|
-| 3 | Dockerfile | `03_dockerfile_*.jpg` | 泡面说明书比喻 |
-| 4 | Docker Compose | `04_docker_compose_*.jpg` | 餐厅点套餐比喻 |
+![01_containers_1](01_containers_1.jpg)
 
-### 第二部分：K8s架构
+### 01_containers_2
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 5 | Master-Node架构 | `01_containers_*.jpg` | 野原家公寓管理 |
-| 6 | 控制平面组件 | `02_vm_vs_container_*.jpg` | 园长指挥各楼层 |
+![01_containers_2](01_containers_2.jpg)
 
-### 第三部分：核心资源对象
+### 01_containers_3
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 7 | Pod | `07_pod_capsule_*.jpg` | 胶囊旅馆房间比喻 |
-| 8 | Deployment | `01_containers_*.jpg` | 工厂流水线比喻 |
-| 9 | StatefulSet | `16_statefulset_bank_v2_*.jpg` | 银行柜员比喻 |
-| 10 | DaemonSet | `07_pod_capsule_*.jpg` | 物业保安比喻 |
-| 11 | Job/CronJob | `18_job_cronjob_*.jpg` | 定时任务比喻 |
+![01_containers_3](01_containers_3.jpg)
 
-### 第四部分：服务发现与网络
+### 01_containers_4
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 12 | Service | `09_service_reception_*.jpg` | 电话总机比喻 |
-| 13 | Ingress | `10_ingress_lobby_*.jpg` | 大楼大堂比喻 |
-| 14 | CoreDNS | `09_service_reception_*.jpg` | 电话簿比喻 |
-| 15 | NetworkPolicy | `10_ingress_lobby_*.jpg` | 门禁系统比喻 |
+![01_containers_4](01_containers_4.jpg)
 
-### 第五部分：配置与存储
+### 02_vm_vs_container_0
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 16 | ConfigMap | `11_configmap_bulletin_*.jpg` | 公告栏比喻 |
-| 17 | Secret | `12_secret_vault_*.jpg` | 保险柜比喻 |
-| 18 | PV/PVC | `13_pv_pvc_parking_*.jpg` | 停车场比喻 |
-| 19 | Volume | `02_vm_vs_container_*.jpg` | 收纳空间比喻 |
+![02_vm_vs_container_0](02_vm_vs_container_0.jpg)
 
-### 附加内容
+### 02_vm_vs_container_1
 
-| 序号 | 知识点 | 插画文件 | 描述 |
-|------|--------|----------|------|
-| 20 | kubectl | `03_dockerfile_*.jpg` | 遥控器比喻 |
-| 21 | Namespace | `24_namespace_isolation_*.jpg` | 楼层隔离比喻 |
-| 22 | 概念总结 | `04_docker_compose_*.jpg` | K8s全家福 |
+![02_vm_vs_container_1](02_vm_vs_container_1.jpg)
 
----
+### 02_vm_vs_container_2
 
-## 🎯 知识点对应表
+![02_vm_vs_container_2](02_vm_vs_container_2.jpg)
 
-### K8s资源对象比喻
+### 02_vm_vs_container_3
 
-| K8s概念 | 蜡笔小新比喻 | 关键词 |
-|---------|--------------|--------|
-| Pod | 胶囊旅馆房间 | 最小单位、共享网络存储 |
-| Deployment | 工厂流水线 | 滚动更新、回滚、扩缩容 |
-| StatefulSet | 银行柜员 | 稳定标识、独立存储 |
-| DaemonSet | 物业保安 | 每节点一个 |
-| Job | 外卖订单 | 一次性任务 |
-| CronJob | 定时闹钟 | 定时执行 |
+![02_vm_vs_container_3](02_vm_vs_container_3.jpg)
 
-### K8s网络比喻
+### 02_vm_vs_container_4
 
-| K8s概念 | 蜡笔小新比喻 | 关键词 |
-|---------|--------------|--------|
-| Service | 电话总机 | 统一入口、负载均衡 |
-| Ingress | 大楼大堂 | HTTP/HTTPS路由 |
-| NetworkPolicy | 门禁系统 | 入口出口规则 |
-| CoreDNS | 电话簿 | 服务名→IP |
+![02_vm_vs_container_4](02_vm_vs_container_4.jpg)
 
-### K8s配置存储比喻
+### 03_dockerfile_0
 
-| K8s概念 | 蜡笔小新比喻 | 关键词 |
-|---------|--------------|--------|
-| ConfigMap | 公告栏 | 非敏感配置 |
-| Secret | 保险柜 | 敏感信息、Base64编码 |
-| PV | 停车位 | 持久存储 |
-| PVC | 停车证 | 存储申请 |
-| Volume | 收纳箱 | 临时存储 |
+![03_dockerfile_0](03_dockerfile_0.jpg)
 
----
+### 03_dockerfile_1
 
-## 📖 使用说明
+![03_dockerfile_1](03_dockerfile_1.jpg)
 
-1. **按顺序学习**：建议按照插画序号学习K8s知识点
-2. **对照教程**：配合对话版教程一起学习效果更佳
-3. **图片选择**：每个知识点提供多张变体，可选择最喜欢的一张
+### 03_dockerfile_2
 
----
+![03_dockerfile_2](03_dockerfile_2.jpg)
 
-## 🔗 相关文件
+### 03_dockerfile_3
 
-- **对话版教程**：`../K8s零基础小白教程-蜡笔小新对话版.md`
-- **原始教程**：`../K8s零基础小白教程.md`
+![03_dockerfile_3](03_dockerfile_3.jpg)
 
----
+### 03_dockerfile_4
 
-> 💡 提示：点击图片可查看大图
+![03_dockerfile_4](03_dockerfile_4.jpg)
+
+### 04_docker_compose_0
+
+![04_docker_compose_0](04_docker_compose_0.jpg)
+
+### 04_docker_compose_1
+
+![04_docker_compose_1](04_docker_compose_1.jpg)
+
+### 04_docker_compose_2
+
+![04_docker_compose_2](04_docker_compose_2.jpg)
+
+### 04_docker_compose_3
+
+![04_docker_compose_3](04_docker_compose_3.jpg)
+
+### 04_docker_compose_4
+
+![04_docker_compose_4](04_docker_compose_4.jpg)
+
+### 07_pod_capsule_0
+
+![07_pod_capsule_0](07_pod_capsule_0.jpg)
+
+### 07_pod_capsule_1
+
+![07_pod_capsule_1](07_pod_capsule_1.jpg)
+
+### 07_pod_capsule_2
+
+![07_pod_capsule_2](07_pod_capsule_2.jpg)
+
+### 07_pod_capsule_3
+
+![07_pod_capsule_3](07_pod_capsule_3.jpg)
+
+### 07_pod_capsule_4
+
+![07_pod_capsule_4](07_pod_capsule_4.jpg)
+
+### 09_service_reception_0
+
+![09_service_reception_0](09_service_reception_0.jpg)
+
+### 09_service_reception_1
+
+![09_service_reception_1](09_service_reception_1.jpg)
+
+### 09_service_reception_2
+
+![09_service_reception_2](09_service_reception_2.jpg)
+
+### 09_service_reception_3
+
+![09_service_reception_3](09_service_reception_3.jpg)
+
+### 09_service_reception_4
+
+![09_service_reception_4](09_service_reception_4.jpg)
+
+### 10_ingress_lobby_0
+
+![10_ingress_lobby_0](10_ingress_lobby_0.jpg)
+
+### 10_ingress_lobby_1
+
+![10_ingress_lobby_1](10_ingress_lobby_1.jpg)
+
+### 10_ingress_lobby_2
+
+![10_ingress_lobby_2](10_ingress_lobby_2.jpg)
+
+### 10_ingress_lobby_3
+
+![10_ingress_lobby_3](10_ingress_lobby_3.jpg)
+
+### 10_ingress_lobby_4
+
+![10_ingress_lobby_4](10_ingress_lobby_4.jpg)
+
+### 11_configmap_bulletin_0
+
+![11_configmap_bulletin_0](11_configmap_bulletin_0.jpg)
+
+### 11_configmap_bulletin_1
+
+![11_configmap_bulletin_1](11_configmap_bulletin_1.jpg)
+
+### 11_configmap_bulletin_2
+
+![11_configmap_bulletin_2](11_configmap_bulletin_2.jpg)
+
+### 11_configmap_bulletin_3
+
+![11_configmap_bulletin_3](11_configmap_bulletin_3.jpg)
+
+### 11_configmap_bulletin_4
+
+![11_configmap_bulletin_4](11_configmap_bulletin_4.jpg)
+
+### 12_secret_vault_0
+
+![12_secret_vault_0](12_secret_vault_0.jpg)
+
+### 12_secret_vault_1
+
+![12_secret_vault_1](12_secret_vault_1.jpg)
+
+### 12_secret_vault_2
+
+![12_secret_vault_2](12_secret_vault_2.jpg)
+
+### 12_secret_vault_3
+
+![12_secret_vault_3](12_secret_vault_3.jpg)
+
+### 12_secret_vault_4
+
+![12_secret_vault_4](12_secret_vault_4.jpg)
+
+### 13_pv_pvc_parking_0
+
+![13_pv_pvc_parking_0](13_pv_pvc_parking_0.jpg)
+
+### 13_pv_pvc_parking_1
+
+![13_pv_pvc_parking_1](13_pv_pvc_parking_1.jpg)
+
+### 13_pv_pvc_parking_2
+
+![13_pv_pvc_parking_2](13_pv_pvc_parking_2.jpg)
+
+### 13_pv_pvc_parking_3
+
+![13_pv_pvc_parking_3](13_pv_pvc_parking_3.jpg)
+
+### 13_pv_pvc_parking_4
+
+![13_pv_pvc_parking_4](13_pv_pvc_parking_4.jpg)
+
+### 16_statefulset_bank_v2_0
+
+![16_statefulset_bank_v2_0](16_statefulset_bank_v2_0.jpg)
+
+### 16_statefulset_bank_v2_1
+
+![16_statefulset_bank_v2_1](16_statefulset_bank_v2_1.jpg)
+
+### 16_statefulset_bank_v2_2
+
+![16_statefulset_bank_v2_2](16_statefulset_bank_v2_2.jpg)
+
+### 16_statefulset_bank_v2_3
+
+![16_statefulset_bank_v2_3](16_statefulset_bank_v2_3.jpg)
+
+### 16_statefulset_bank_v2_4
+
+![16_statefulset_bank_v2_4](16_statefulset_bank_v2_4.jpg)
+
+### 18_job_cronjob_0
+
+![18_job_cronjob_0](18_job_cronjob_0.jpg)
+
+### 18_job_cronjob_1
+
+![18_job_cronjob_1](18_job_cronjob_1.jpg)
+
+### 18_job_cronjob_2
+
+![18_job_cronjob_2](18_job_cronjob_2.jpg)
+
+### 18_job_cronjob_3
+
+![18_job_cronjob_3](18_job_cronjob_3.jpg)
+
+### 18_job_cronjob_4
+
+![18_job_cronjob_4](18_job_cronjob_4.jpg)
+
+### 24_namespace_isolation_0
+
+![24_namespace_isolation_0](24_namespace_isolation_0.jpg)
+
+### 24_namespace_isolation_1
+
+![24_namespace_isolation_1](24_namespace_isolation_1.jpg)
+
+### 24_namespace_isolation_2
+
+![24_namespace_isolation_2](24_namespace_isolation_2.jpg)
+
+### 24_namespace_isolation_3
+
+![24_namespace_isolation_3](24_namespace_isolation_3.jpg)
+
+### 24_namespace_isolation_4
+
+![24_namespace_isolation_4](24_namespace_isolation_4.jpg)
+
+### k8s_coverage_02_0
+
+![k8s_coverage_02_0](k8s_coverage_02_0.jpg)
+
+### k8s_coverage_02_1
+
+![k8s_coverage_02_1](k8s_coverage_02_1.jpg)
+
+### k8s_coverage_02_2
+
+![k8s_coverage_02_2](k8s_coverage_02_2.jpg)
+
+### k8s_coverage_02_3
+
+![k8s_coverage_02_3](k8s_coverage_02_3.jpg)
+
+### k8s_coverage_02_4
+
+![k8s_coverage_02_4](k8s_coverage_02_4.jpg)
+
