@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技术知识库</title>
+    <title>技术知识库 - 蜡笔小新插画海报</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
             padding: 40px 20px;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         h1 {
@@ -27,10 +27,57 @@
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        .card-grid {
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .tab.active, .tab:hover {
+            background: white;
+            color: #667eea;
+        }
+        .gallery {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .gallery.active {
+            display: grid;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
+        .section-title {
+            color: white;
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+        .card-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
+            margin-bottom: 50px;
         }
         .card {
             background: white;
@@ -62,12 +109,42 @@
             font-size: 0.85rem;
             margin-top: 15px;
         }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📚 技术知识库</h1>
-        <div class="card-grid">
+        
+        <!-- 文档卡片区 -->
+        <div class="card-section">
             <div class="card" onclick="window.open('https://github.com/JIDoctor-alt/coze-test/tree/master/技术知识库', '_blank')">
                 <h2>🎨 技术知识库</h2>
                 <p>Java/K8s/Transformer/微调/AI工程化/AI应用/提示词工程/面试宝典 八大技术教程，含519张蜡笔小新风格插画海报 + 对话版文档</p>
@@ -81,9 +158,604 @@
             <div class="card" onclick="window.open('https://github.com/JIDoctor-alt/coze-test/tree/master/技术知识库/PICC源码解析', '_blank')">
                 <h2>🏥 PICC项目源码解析</h2>
                 <p>PICC慢病管理系统全套源码解析，5524个文件逐文件拆解，小白友好版纯代码解析</p>
-                <span class="badge">63篇文档 · 5个服务</span>
+                <span class="badge">49篇文档 · 5个服务</span>
             </div>
         </div>
+
+        <!-- 插画标签页 -->
+        <div class="tabs">
+            <button class="tab active" onclick="showGallery('java')">Java教程</button>
+            <button class="tab" onclick="showGallery('k8s')">K8s教程</button>
+            <button class="tab" onclick="showGallery('transformer')">Transformer</button>
+            <button class="tab" onclick="showGallery('finetune')">大模型微调</button>
+            <button class="tab" onclick="showGallery('ai-eng')">AI工程化</button>
+            <button class="tab" onclick="showGallery('ai-app')">AI应用开发</button>
+            <button class="tab" onclick="showGallery('prompt')">提示词工程</button>
+            <button class="tab" onclick="showGallery('interview')">面试宝典</button>
+        </div>
+
+        <!-- Java 画廊 -->
+        <div id="java" class="gallery active">
+            <h2 class="section-title">Java教程 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-01_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-01_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-01_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-01_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-01_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-02_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-02_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-02_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-02_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-02_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-03_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-03_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-03_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-03_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-03_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-04_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-04_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-04_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-04_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-04_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-05_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-05_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-05_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-05_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-05_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-06_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-06_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-06_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-06_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-06_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-07_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-07_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-07_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-07_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-07_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-08_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-08_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-08_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-08_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-08_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-09_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-09_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-09_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-09_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-09_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-10_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-10_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-10_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-10_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-11_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-11_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-11_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-11_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-11_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-12_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-12_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-12_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-12_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-12_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-13_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-13_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-13_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-13_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-13_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-14_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-14_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-14_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-14_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-14_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-15_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-15_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-15_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-15_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-15_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-16_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-16_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-16_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-16_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-16_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-17_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-17_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-17_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-17_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-17_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-18_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-18_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-18_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-18_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-18_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-19_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-19_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-19_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-19_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-19_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-20_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-20_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-20_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-20_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-20_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-21_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-21_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-21_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-21_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-21_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-22_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-22_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-22_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-22_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-22_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-23_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-23_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-23_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-23_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-23_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-24_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-24_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-24_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-24_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Java/Java-24_4.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- K8s 画廊 -->
+        <div id="k8s" class="gallery">
+            <h2 class="section-title">K8s教程 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/01_containers_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/01_containers_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/01_containers_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/01_containers_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/01_containers_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/02_vm_vs_container_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/02_vm_vs_container_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/02_vm_vs_container_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/02_vm_vs_container_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/02_vm_vs_container_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/03_dockerfile_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/03_dockerfile_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/03_dockerfile_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/03_dockerfile_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/03_dockerfile_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/04_docker_compose_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/04_docker_compose_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/04_docker_compose_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/04_docker_compose_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/04_docker_compose_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/07_pod_capsule_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/07_pod_capsule_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/07_pod_capsule_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/07_pod_capsule_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/07_pod_capsule_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/09_service_reception_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/09_service_reception_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/09_service_reception_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/09_service_reception_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/09_service_reception_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/10_ingress_lobby_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/10_ingress_lobby_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/10_ingress_lobby_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/10_ingress_lobby_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/10_ingress_lobby_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/11_configmap_bulletin_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/11_configmap_bulletin_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/11_configmap_bulletin_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/11_configmap_bulletin_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/11_configmap_bulletin_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/12_secret_vault_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/12_secret_vault_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/12_secret_vault_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/12_secret_vault_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/12_secret_vault_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/13_pv_pvc_parking_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/13_pv_pvc_parking_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/13_pv_pvc_parking_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/13_pv_pvc_parking_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/13_pv_pvc_parking_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/16_statefulset_bank_v2_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/16_statefulset_bank_v2_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/16_statefulset_bank_v2_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/16_statefulset_bank_v2_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/16_statefulset_bank_v2_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/18_job_cronjob_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/18_job_cronjob_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/18_job_cronjob_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/18_job_cronjob_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/18_job_cronjob_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/24_namespace_isolation_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/24_namespace_isolation_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/24_namespace_isolation_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/24_namespace_isolation_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/24_namespace_isolation_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/k8s_coverage_02_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/k8s_coverage_02_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/k8s_coverage_02_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/k8s_coverage_02_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/K8s/k8s_coverage_02_4.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- Transformer 画廊 -->
+        <div id="transformer" class="gallery">
+            <h2 class="section-title">Transformer教程 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/01_监督学习_美伢买菜.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/02_无监督学习_风间整理书架.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/03_强化学习_正男学骑车.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/04_数据集划分_妮妮考试.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/05_损失函数_成绩单.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/06_词汇.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/07_梯度下降_蒙眼下山.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/08_过拟合与正则化_背答案vs理解.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/09_前向传播与反向传播_做菜.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/10_BatchNorm与LayerNorm_标准化.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/11_词嵌入_图书馆住址.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/12_Seq2Seq_翻译官.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/13_位置编码_座位号.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/14_FFN_消化吸收.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/15_残差连接_保命通道.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/16_BERT_完形填空.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/17_GPT_续写作文.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/18_Transformer全家福.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/19_学习路线图.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/20_优化器_Adam下山.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/21_感知机与MLP_投票员.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/22_QKV详解_图书馆检索.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/23_多头注意力_审稿会议.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/24_注意力机制_聚焦关键词.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/25_Masked_Attention_考试不能偷看.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/Transformer/26_三种架构对比.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- 微调 画廊 -->
+        <div id="finetune" class="gallery">
+            <h2 class="section-title">大模型微调 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/微调/01_什么是微调.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/02_全量微调.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/03_LoRA微调.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/04_QLoRA量化.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/05_数据准备.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/06_数据格式.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/07_数据质量.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/08_SFT监督微调.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/09_vLLM加速.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/10_Ollama部署.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/11_量化压缩.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/12_RLHF_DPO对齐.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/13_模型评估.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/14_提示工程vs微调.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/15_LLaMAFactory工具.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/16_微调成果.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/17_技术选择地图.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/微调/18_微调性价比.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- AI工程化 画廊 -->
+        <div id="ai-eng" class="gallery">
+            <h2 class="section-title">AI工程化 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/01_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/02_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/03_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/04_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/05_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/06_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/07_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/08_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/09_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/10_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/11_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/12_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/13_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/14_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/15_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/16_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/17_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/18_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/19_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/20_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/21_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/22_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/23_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/24_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/25_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/26_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/27_插画.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI工程化/28_插画.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- AI应用开发 画廊 -->
+        <div id="ai-app" class="gallery">
+            <h2 class="section-title">AI应用开发 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/01_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/06_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/08_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/09_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/10_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/11_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/12_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/13_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/14_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/15_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_statefulset_bank_v2_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_statefulset_bank_v2_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_statefulset_bank_v2_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_statefulset_bank_v2_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/16_statefulset_bank_v2_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/17_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_job_cronjob_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_job_cronjob_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_job_cronjob_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_job_cronjob_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/18_job_cronjob_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/19_7.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21__0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21__1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21__2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21__3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_5.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_6.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/AI应用开发/21_7.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- 提示词工程 画廊 -->
+        <div id="prompt" class="gallery">
+            <h2 class="section-title">提示词工程 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-01-提示词是什么-01.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-01-提示词是什么-02.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-01-提示词是什么-03.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-01-提示词是什么-04.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-01-提示词是什么-05.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-02-基础技法-06.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-02-基础技法-07.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-02-基础技法-08.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-02-基础技法-09.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-10.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-11.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-12.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-13.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-14.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-03-高级技法-15.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-04-System提示词-16.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-04-System提示词-17.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-04-System提示词-18.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-04-System提示词-19.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-05-提示词安全-20.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-05-提示词安全-21.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-05-提示词安全-22.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-05-提示词安全-23.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-06-结构化输出-24.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-06-结构化输出-25.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-06-结构化输出-26.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-06-结构化输出-27.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-07-提示词评估-28.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-07-提示词评估-29.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-07-提示词评估-30.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-07-提示词评估-31.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-32.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-33.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-34.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-35.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-36.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-08-行业实战-37.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-终幕-未来展望-38.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-终幕-未来展望-39.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/提示词工程/提示词-终幕-未来展望-40.jpg" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- 面试宝典 画廊 -->
+        <div id="interview" class="gallery">
+            <h2 class="section-title">面试宝典 蜡笔小新插画</h2>
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/01_cover_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/01_cover_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/01_cover_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/01_cover_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/01_cover_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/02_transformer_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/02_transformer_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/02_transformer_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/02_transformer_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/02_transformer_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/03_training_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/03_training_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/03_training_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/03_training_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/03_training_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/04_lora_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/04_lora_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/04_lora_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/04_lora_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/04_lora_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/05_rag_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/05_rag_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/05_rag_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/05_rag_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/05_rag_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/06_prompt_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/06_prompt_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/06_prompt_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/06_prompt_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/06_prompt_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/07_agent_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/07_agent_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/07_agent_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/07_agent_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/07_agent_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/08_interview_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/08_interview_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/08_interview_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/08_interview_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/08_interview_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/09_moe_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/09_moe_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/09_moe_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/09_moe_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/09_moe_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/10_ending_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/10_ending_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/10_ending_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/10_ending_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/10_ending_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/11_flashattention_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/11_flashattention_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/11_flashattention_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/11_flashattention_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/11_flashattention_4.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/12_position_0.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/12_position_1.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/12_position_2.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/12_position_3.jpg" onclick="openLightbox(this.src)">
+            <img src="技术知识库/蜡笔小新插画海报版/面试宝典/12_position_4.jpg" onclick="openLightbox(this.src)">
+        </div>
     </div>
+
+    <!-- 灯箱效果 -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        function showGallery(id) {
+            document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
 </body>
 </html>
